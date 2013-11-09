@@ -9,7 +9,7 @@ end
 
 When(/^the consume feature is run$/) do
   steps %{
-    When I run `page-barfer input.txt`
+    When I run `page_barfer input.txt`
   }
 end
 
