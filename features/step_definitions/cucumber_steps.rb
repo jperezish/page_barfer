@@ -1,23 +1,11 @@
-Given(/^the input "([^"]*)"$/) do |input|
-  steps %{
-    Given a file named "products.json" with:
-    """
-    #{input}
-    """
-  }
+Given(/^a file named "([^"]*)" with "([^"]*)"$/) do |file_name, file_contents|
+  write_file file_name, file_contents
 end
 
-When(/^the consume feature is run$/) do
-  steps %{
-    When I run `page_barfer input.txt`
-  }
+When(/^consume is run with "([^"]*)"$/) do |file_name|
+    run "page_barfer consume #{file_name}"
 end
 
 Then(/^the output should be "(.*?)"$/) do |output|
-  steps %{
-    Then it should pass with:
-    """
-    #{output}
-    """
-  }
+  assert_passing_with output
 end
