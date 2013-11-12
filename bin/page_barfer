@@ -6,25 +6,20 @@ module PageBarfer
   class Commands < Thor
     include Thor::Actions
 
-    desc "consume FILE_NAME", "consumes the FILE_NAME"
+    desc "barf FILE_NAME LAYOUT_NAME",
+          "create pages based on LAYOUT_NAME for each record in FILE_NAME"
     long_desc <<-LONGDESC
       This is a long description
 
       Okay it's not really that long.
     LONGDESC
-    def consume(file_name=nil)
+    def barf(file_name=nil, layout_name=nil)
       if file_name
         puts "Successfully imported #{file_name}."
       else
         file_name = ask "What's the file name?"
-        Consume.eat_the_file(file_name)
+        Barf.generate_pages_from(file_name, layout_name)
       end
-    end
-  end
-
-  class Consume
-    def self.eat_the_file(file_name)
-      puts "Successfully imported #{file_name}."
     end
   end
 end
