@@ -20,7 +20,7 @@ module PageBarfer
         imports_json = ImportsJsonDouble.new
         @my_page_data.get_content_variables(@file_path, imports_json)
 
-        expect(@my_page_data.source_data_for_pages.first["product_name"]).to eq("Bacon")
+        expect(@my_page_data.catalog_products.first["product_name"]).to eq("Bacon")
       end
     end
   end
