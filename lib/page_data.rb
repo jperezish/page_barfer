@@ -2,7 +2,7 @@ require 'json'
 
 module PageBarfer
 
-  class PageData
+  class Catalog
     attr_reader :source_data_for_pages, :file_path
 
     def get_content_variables(file_path, data_source)
