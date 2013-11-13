@@ -5,7 +5,7 @@ module PageBarfer
   class PageData
     attr_reader :source_data_for_pages, :file_path
 
-    def get_page_data_from(file_path, data_source)
+    def get_content_variables(file_path, data_source)
       @file_path = file_path
       @source_data_for_pages = data_source.import(self)
     end

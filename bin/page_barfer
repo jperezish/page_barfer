@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+require_relative '../lib/barf'
+
 require "thor"
 
 module PageBarfer
