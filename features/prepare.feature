@@ -1,4 +1,3 @@
-@announce
 
 Feature: page_barfer prepare
   As a web designer working for a client with a catalog of products stored in a single file, I want to prepare the catalog products to work with my Jekyll site, so I can have a web page for each one of my products.
@@ -8,3 +7,5 @@ Feature: page_barfer prepare
     When "prepare" is run with "bacon-store"
 
     Then the command line message should be "Page Barfer is ready for use."
+    And a directory named "bacon-store/page_barfer" should exist
+    And a file named "_page_barfer_config.yml" should exist

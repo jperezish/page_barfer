@@ -8,6 +8,18 @@ module PageBarfer
   class Commands < Thor
     include Thor::Actions
 
+    desc "prepare JEKYLL_SITE_NAME",
+          "prepare Page Barfer for use."
+    long_desc <<-LONGDESC
+      The prepare command adds a directory named 'page_barfer',
+      a config file in that directory named '_page_barfer_config.yml',
+      and provides some instruction on what to do next.
+    LONGDESC
+    def prepare(jekyll_site_name=nil)
+      PageBarfer::Prepare.create(jekyll_site_name)
+      puts "Page Barfer is ready for use in the #{jekyll_site_name} directory."
+    end
+
     desc "barf FILE_NAME LAYOUT_NAME",
           "create pages based on LAYOUT_NAME for each record in FILE_NAME"
     long_desc <<-LONGDESC
@@ -22,16 +34,6 @@ module PageBarfer
         file_name = ask "What's the file name?"
         Barf.generate_pages_from(file_name, layout_name)
       end
-    end
-
-    desc "prepare JEKYLL_SITE_NAME",
-          "prepare Page Barfer for use."
-    long_desc <<-LONGDESC
-      The prepare command will add a Page Barfer folder,
-      add a config file, and provide some instruction on what to do next.
-    LONGDESC
-    def prepare(jekyll_site_name=nil)
-      puts "Page Barfer is ready for use."
     end
   end
 end

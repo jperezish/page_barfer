@@ -1,3 +1,4 @@
+@announce
 
 Feature: page_barfer barf
   As a person with a ton of data stored in a single data file, I want to transform this data into Jekyll partials using a layout I choose.
