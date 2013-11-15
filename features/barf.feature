@@ -32,4 +32,4 @@ Feature: page_barfer barf
     When I run `page_barfer barf` interactively
     And I type "products.json"
 
-    Then the output should be "Successfully imported products.json."
+    Then the command line message should be "Successfully imported products.json."

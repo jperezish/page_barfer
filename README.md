@@ -1,9 +1,15 @@
-# Page Barfer
+# What is Page Barfer?
 
-**Gross!** _Indeed._
+Page Barfer is an import/export gem that takes a list of items and related attributes and creates an HTML page for each item.
 
-Do you have a ton of text files you want to generate? Awesome. Use page barfer to barf out all that stuff.
+The first release will:
 
->As a person who has a product catalog, I want to generate markdown partials with front matter for each one so I can use Jekyll to build out a static site.
+* Assist folks creating [Jekyll static sites](http://jekyllrb.com/) that need a bunch of pages created from something structurally similar to a product catalog
+* Import from json and xml files
+* Sit in a Jekyll project folder without destroying anything Jekyll does
 
-Just modify Jekyll and do it there! Well you could couple this to Jekyll but that's not as fun as having a separate gem! Woot woot!
+## Usage Scenario
+
+Susan has a client that wants a website to display their product catalog. Susan is going to use Jekyll to build out her client's site. She wants to use Jekyll's layouts but doesn't want the content to be treated as blog content. Susan will also use [lunr.js](https://github.com/slashdotdash/jekyll-lunr-js-search) to provide search capabilities for her client's products. After some initial setup, the Page Barfer spits out what Susan needs:
+
+A product page for each product, with all of her attributes placed in her layout, along with index pages for each category.
