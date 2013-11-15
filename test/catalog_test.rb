@@ -10,19 +10,19 @@ module PageBarfer
       @imports_json = MiniTest::Mock.new
     end
 
-    describe "#get_catalog_products" do
+    describe "#get_products" do
       it "sends a message to import from a json file" do
         @imports_json.expect(:import, true, [Catalog])
-        @my_page_data.get_catalog_products(@file_path, @imports_json)
+        @my_page_data.get_products(@file_path, @imports_json)
 
         @imports_json.verify
       end
 
       it "provides access to variables" do
         imports_json = ImportsJsonDouble.new
-        @my_page_data.get_catalog_products(@file_path, imports_json)
+        @my_page_data.get_products(@file_path, imports_json)
 
-        @my_page_data.catalog_products.first["product_name"].must_equal "Bacon"
+        @my_page_data.products.first["product_name"].must_equal "Bacon"
       end
     end
   end
