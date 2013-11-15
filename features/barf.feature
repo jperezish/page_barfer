@@ -1,4 +1,3 @@
-@announce
 
 Feature: page_barfer barf
   As a person with a ton of data stored in a single data file, I want to transform this data into Jekyll partials using a layout I choose.
@@ -24,9 +23,9 @@ Feature: page_barfer barf
     """
 
   Scenario: Barf with a json file only
-    When barf is run with "products.json"
+    When "barf" is run with "products.json"
 
-    Then the output should be "Successfully imported products.json."
+    Then the command line message should be "Successfully imported products.json."
 
   Scenario: Barf a json file when prompted
     When I run `page_barfer barf` interactively

@@ -23,6 +23,16 @@ module PageBarfer
         Barf.generate_pages_from(file_name, layout_name)
       end
     end
+
+    desc "prepare JEKYLL_SITE_NAME",
+          "prepare Page Barfer for use."
+    long_desc <<-LONGDESC
+      The prepare command will add a Page Barfer folder,
+      add a config file, and provide some instruction on what to do next.
+    LONGDESC
+    def prepare(jekyll_site_name=nil)
+      puts "Page Barfer is ready for use."
+    end
   end
 end
 
