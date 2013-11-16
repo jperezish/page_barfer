@@ -6,6 +6,6 @@ Feature: page_barfer prepare
     Given a directory named "bacon-store"
     When "prepare" is run with "bacon-store"
 
-    Then the command line message should be "Page Barfer is ready for use."
-    And a directory named "bacon-store/page_barfer" should exist
-    And a file named "_page_barfer_config.yml" should exist
+    Then the command line message should be "Page Barfer is ready for use in the bacon-store directory."
+    And a directory named "bacon-store/_page_barfer" should exist
+    And a file named "bacon-store/_page_barfer/_page_barfer_config.yml" should exist
