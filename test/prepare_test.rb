@@ -8,7 +8,7 @@ module PageBarfer
   describe Prepare do
     before do
       @jekyll_site_name = "bacon-store"
-      @config_path = Pathname.new("#{@jekyll_site_name}/_page_barfer/_page_barfer_config.yml")
+      @config_path = Pathname.new("#{@jekyll_site_name}/_plugins/page_barfer/page_barfer_config.yml")
       @page_barfer_directory = @config_path.dirname
       @page_barfer_config_file = @config_path.basename
 
