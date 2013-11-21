@@ -4,9 +4,15 @@ Feature: page_barfer prepare
 
   Scenario: Jekyll already installed, site name provided
     Given a directory named "bacon-store"
-    And a directory named "_plugins"
+    And a directory named "_data"
+    And an empty file named "bacon-store/_config.yml"
     When "prepare" is run with "bacon-store"
 
     Then the command line message should be "Page Barfer is ready for use in the bacon-store directory."
-    And a directory named "bacon-store/_plugins/page_barfer" should exist
-    And a file named "bacon-store/_plugins/page_barfer/page_barfer_config.yml" should exist
+    And the file "bacon-store/_config.yml" should contain:
+      """
+      # Page Barfer config
+      product_details_layout: #sample_product_details.html
+      category_layout: #sample_category.html
+      product_file: #sample_products.json
+      """

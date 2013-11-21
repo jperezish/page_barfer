@@ -32,7 +32,7 @@ module PageBarfer
         puts "Successfully imported #{file_name}."
       else
         file_name = ask "What's the file name?"
-        Barf.generate_pages_from(file_name, layout_name)
+        Barf.generate_pages_from(file_name)
       end
     end
   end

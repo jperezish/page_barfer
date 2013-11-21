@@ -13,6 +13,13 @@ module PageBarfer
       end
 
       FileUtils.touch @config_path.to_s
+
+      f = File.new("#{@jekyll_site_name}/_config.yml", "w")
+      f.puts "# Page Barfer config"
+      f.puts "product_details_layout: #sample_product_details.html"
+      f.puts "category_layout: #sample_category.html"
+      f.puts "product_file: #sample_products.json"
+      f.close
     end
   end
 end

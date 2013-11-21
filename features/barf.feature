@@ -8,17 +8,24 @@ Feature: page_barfer barf
     """
     [
     {
-      "product_number": "1234567890",
-      "product_name": "Baby Bubba's Butcher Block Hickory Smoked Peppered Bacon",
-      "product_description": "This bacon has a bold flavor profile, and the pepper gives it the kick you'll love. It brings out the "Bubba" in everyone! 14 ounces per package.",
-      "category_one": "The Bacon"
+      "sku": "1234567890",
+      "name": "Baby Bubba's Butcher Block Hickory Smoked Peppered Bacon",
+      "description": "This bacon has a bold flavor profile, and the pepper gives it the kick you'll love. It brings out the 'Bubba' in everyone! 14 ounces per package.",
+      "hierarchies": [
+            {
+                "products": ["bacon supplies", "savory", "bubba"]
+            }
+        ]
     },
     {
-      "product_number": "1332328976",
-      "product_name": "Vosges Dark Chocolate Bacon Bar",
-      "product_description": "Mo's Dark Bacon Bar: applewood smoked bacon + Alder wood smoked salt + dark chocolate 62% cacao 3oz.",
-      "category_one": "Bacon Sweets & Snacks",
-      "category_two": "Bacon Chocolate"
+      "sku": "1332328976",
+      "name": "Vosges Dark Chocolate Bacon Bar",
+      "description": "Mo's Dark Bacon Bar: applewood smoked bacon + Alder wood smoked salt + dark chocolate 62% cacao 3oz.",
+      "hierarchies": [
+            {
+                "products": ["bacon supplies", "sweet", "chocolate", "vosges"]
+            }
+        ]
     }
     ]
     """
@@ -27,9 +34,14 @@ Feature: page_barfer barf
     When "barf" is run with "products.json"
 
     Then the command line message should be "Successfully imported products.json."
+    And a file named "bacon-store/products/bacon-supplies/savory/bubba/index.html" should exist
 
   Scenario: Barf a json file when prompted
     When I run `page_barfer barf` interactively
     And I type "products.json"
 
     Then the command line message should be "Successfully imported products.json."
+
+
+
+
