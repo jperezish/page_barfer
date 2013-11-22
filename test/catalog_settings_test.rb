@@ -1,11 +1,11 @@
-require_relative '../lib/prepare'
+require_relative '../lib/catalog_settings'
 require_relative 'spec_helper'
 require 'fileutils'
 require 'pathname'
 
 module PageBarfer
 
-  describe Prepare do
+  describe CatalogSettings do
     before do
       @jekyll_site_name = "bacon-store"
       @config_path = Pathname.new("#{@jekyll_site_name}/_plugins/page_barfer/page_barfer_config.yml")
@@ -15,16 +15,16 @@ module PageBarfer
       Dir.mkdir(@jekyll_site_name)
     end
 
-    describe "#self.create" do
+    describe "#self.configure" do
       it "creates a page barfer folder" do
-        Prepare.create(@jekyll_site_name)
+        CatalogSettings.configure(@jekyll_site_name)
 
         assert File.exist?(@page_barfer_directory),
           "Jekyll directory '#{@page_barfer_directory}' not found."
       end
 
       it "creates a page barfer config file" do
-        Prepare.create(@jekyll_site_name)
+        CatalogSettings.configure(@jekyll_site_name)
 
         assert File.exist?(@config_path.to_s),
           "'#{@config_path.to_s}' not found."
@@ -34,7 +34,7 @@ module PageBarfer
         skip
         FileUtils.rm_rf(@jekyll_site_name)
 
-        Prepare.create(@jekyll_site_name)
+        CatalogSettings.configure(@jekyll_site_name)
       end
     end
 

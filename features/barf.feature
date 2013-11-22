@@ -31,6 +31,7 @@ Feature: page_barfer barf
     """
 
   Scenario: Barf with a json file only
+
     When "barf" is run with "products.json"
 
     Then the command line message should be "Successfully imported products.json."
@@ -41,6 +42,8 @@ Feature: page_barfer barf
     And I type "products.json"
 
     Then the command line message should be "Successfully imported products.json."
+
+
 
 
 

@@ -2,8 +2,8 @@ require 'pathname'
 require 'fileutils'
 
 module PageBarfer
-  class Prepare
-    def self.create(jekyll_site_name)
+  class CatalogSettings
+    def self.configure(jekyll_site_name)
       @jekyll_site_name = jekyll_site_name
       @config_path = Pathname.new("#{@jekyll_site_name}/_plugins/page_barfer/page_barfer_config.yml")
       @page_barfer_directory = @config_path.dirname
@@ -20,6 +20,7 @@ module PageBarfer
       f.puts "category_layout: #sample_category.html"
       f.puts "product_file: #sample_products.json"
       f.close
+
     end
   end
 end
