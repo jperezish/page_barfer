@@ -4,30 +4,33 @@ require 'yaml'
 
 module PageBarfer
   class Catalog
-    attr_reader :products
+    attr_reader :products, :top_level_categories, :layouts
 
-    def self.create
-      @data_store_type  = ImportsJson.new
+    def initialize(args={})
+      @products     = args[:products] #should = results of json product import
+      @layouts      = args[:layouts] #should = results of layout import
+    end
 
-      collect_the_products(@products_file, @data_store_type)
+    def create(creators)
+      creators.each { |creator| creator.create_catalog(self) }
     end
 
     def read_config_file
-      @products_file = YAML.load_file('_config.yml')
+      # dependency: Catalog expects that a class named YAML exists.
+      # It also expects a YAML instance to respond to load_file
+      # It also knows that it requires an argument
+      @products_file = ConfigReader.load_file('bacon-store/_config.yml')
     end
 
-    def collect_the_products(products_file, data_store_type)
+    # collect the products expects callers to know the order of its args
+    def read_product_file(products_file, data_store_type)
       @products = data_store_type.import(self)
     end
+  end
 
-    def generate_pages
-      index_path = Pathname.new("products/bacon-supplies/savory/bubba/index.html")
-      index_directory = index_path.dirname
-
-      index_directory.descend do |dir|
-        FileUtils.mkdir dir unless File.exist?(dir)
-      end
-      FileUtils.touch index_path.to_s
+  module ConfigReader
+    def self.load_file
+      YAML.load_file('bacon-store/_config.yml')
     end
   end
 end

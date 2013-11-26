@@ -15,9 +15,9 @@ module PageBarfer
       a config file in that directory named '_page_barfer_config.yml',
       and provides some instruction on what to do next.
     LONGDESC
-    def prepare(jekyll_site_name=nil)
-      PageBarfer::Prepare.create(jekyll_site_name)
-      puts "Page Barfer is ready for use in the #{jekyll_site_name} directory."
+    def prepare
+      CatalogSettings.configure
+      puts "Page Barfer is ready for use in the directory."
     end
 
     desc "barf FILE_NAME LAYOUT_NAME",
@@ -27,13 +27,10 @@ module PageBarfer
 
       Okay it's not really that long.
     LONGDESC
-    def barf(file_name=nil, layout_name=nil)
-      if file_name
-        puts "Successfully imported #{file_name}."
-      else
-        file_name = ask "What's the file name?"
-        Barf.generate_pages_from(file_name)
-      end
+    def barf
+      creators = [Category.new, Product.new]
+      catalog = Catalog.new
+      catalog.create(creators)
     end
   end
 end
