@@ -1,36 +1,37 @@
-require 'pathname'
 require 'fileutils'
 require 'yaml'
+require 'json'
 
 module PageBarfer
   class Catalog
     attr_reader :products, :top_level_categories, :layouts
 
-    def initialize(args={})
-      @products     = args[:products] #should = results of json product import
-      @layouts      = args[:layouts] #should = results of layout import
+    def initialize
+      read_config_file
+      read_catalog_file
     end
 
     def create(creators)
       creators.each { |creator| creator.create_catalog(self) }
     end
 
+private
+
     def read_config_file
-      # dependency: Catalog expects that a class named YAML exists.
-      # It also expects a YAML instance to respond to load_file
-      # It also knows that it requires an argument
-      @products_file = ConfigReader.load_file('bacon-store/_config.yml')
+      layout_prefix = "layout_for"
+      config = ConfigReader.load_file
+      @catalog_file_name = config["catalog_file"]
+      @layouts = config.select { |k, v| k.include? "layout_for" }
     end
 
-    # collect the products expects callers to know the order of its args
-    def read_product_file(products_file, data_store_type)
-      @products = data_store_type.import(self)
+    def read_catalog_file
+      @products = JSON.parse(IO.read(@catalog_file_name))
     end
   end
 
   module ConfigReader
     def self.load_file
-      YAML.load_file('bacon-store/_config.yml')
+      YAML.load_file("_page_barfer_config.yml")
     end
   end
 end

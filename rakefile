@@ -1,10 +1,8 @@
 require 'rake'
 require 'rake/testtask'
 
-Rake::TestTask.new do |t|
-  t.pattern = "test/*_test.rb"
-  t.ruby_opts = ["-rminitest/pride"]
+task :tests do
+  $LOAD_PATH.unshift('lib', 'spec')
+  Dir.glob('./test/*_test.rb') { |f| require f }
 end
 
-desc "Run tests"
-task :default => :test

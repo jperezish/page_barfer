@@ -1,14 +1,41 @@
+require 'fileutils'
+
 module PageBarfer
   class Product
-    def create_catalog(catalog)
-      @products = catalog.products
-      index_path = Pathname.new("products/bacon-supplies/savory/bubba/index.html")
-      index_directory = index_path.dirname
+    attr_reader :directories
 
-      index_directory.descend do |dir|
-        FileUtils.mkdir dir unless File.exist?(dir)
+    def create_catalog(catalog)
+      @products    = catalog.products
+      @layouts     = catalog.layouts
+
+      @products.each do |product|
+        get_products_categories(product)
+        create_directories_from_categories
+        create_product_details_page
       end
-      FileUtils.touch index_path.to_s
+    end
+
+    def get_products_categories(product)
+      @directories      = ""
+      hierarchy_name    = ""
+      product_hierarchy = product["hierarchies"].first["products"]
+
+      product_hierarchy.each do |category|
+        @directories << "#{format_category_for_directory(category)}/"
+      end
+    end
+
+    def create_directories_from_categories
+      FileUtils.mkdir_p @directories
+    end
+
+    def create_product_details_page
+      product_detail_page = "#{@directories}/index.html"
+      FileUtils.touch product_detail_page
+    end
+
+    def format_category_for_directory(category)
+      category.downcase.gsub(/[^a-z\s]/, '').gsub(' ', '-')
     end
   end
 end

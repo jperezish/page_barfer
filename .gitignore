@@ -3,6 +3,10 @@
 tmp
 Gemfile.lock
 *.gem
+products.json
+_page_barfer_config.yml
+products
+bacon-store
 
 # Compiled source #
 ###################
