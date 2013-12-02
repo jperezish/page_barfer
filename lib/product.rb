@@ -2,14 +2,14 @@ require 'fileutils'
 
 module PageBarfer
   class Product
-    attr_reader :directories
+    attr_reader :directory_path
 
     def create_catalog(catalog)
       @products    = catalog.products
       @layouts     = catalog.layouts
 
       @products.each do |product|
-        get_products_categories(product)
+        get_product_categories(product)
         create_directories_from_categories
         create_product_details_page(product)
       end
@@ -17,22 +17,21 @@ module PageBarfer
 
   private
 
-    def get_products_categories(product)
-      @directories      = ""
-      hierarchy_name    = ""
-      product_hierarchy = product["hierarchies"].first["products"]
+    def get_product_categories(product)
+      @directory_path      = ""
+      product_hierarchy = product["hierarchy"]
 
       product_hierarchy.each do |category|
-        @directories << "#{format_category_for_directory(category)}/"
+        @directory_path << "#{format_category_for_directory(category)}/"
       end
     end
 
     def create_directories_from_categories
-      FileUtils.mkdir_p @directories
+      FileUtils.mkdir_p @directory_path
     end
 
     def create_product_details_page(product)
-      product_detail_page = "#{@directories}/index.html"
+      product_detail_page = "#{@directory_path}/index.html"
       FileUtils.touch product_detail_page
       yaml_front_matter = ""
 

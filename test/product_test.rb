@@ -12,12 +12,10 @@ module PageBarfer
 
     describe "#create_catalog" do
       it "creates all the directories" do
-
         File.exist?("bacon-supplies/savory/bubbas").must_equal true
       end
 
       it "creates the product detail pages" do
-
         File.exist?("bacon-supplies/savory/bubbas/index.html").must_equal true
       end
 
@@ -43,7 +41,8 @@ module PageBarfer
     end
 
     def test_create_directories
-      assert_equal "bacon-supplies/sweet/granny-jeans-bacon-treats/", @product.directories
+      test_path = "bacon-supplies/sweet/granny-jeans-bacon-treats/"
+      assert_equal test_path, @product.directory_path
     end
 
     def teardown
@@ -61,19 +60,11 @@ class CatalogDouble
     [
       { "sku" => "1234",
         "description" => "The best savory bacon you're ever gonna taste!",
-        "hierarchies" => [
-          {
-            "products" => ["Bacon Supplies", "Savory!", "Bubba's"]
-          }
-        ]
+        "hierarchy" => ["Bacon Supplies", "Savory!", "Bubba's"]
       },
       { "sku" => "1255",
         "description" => "Bacon + chocolate + 100% pure awesome!",
-        "hierarchies" => [
-          {
-            "products" => ["Bacon Supplies", "Sweet!", "Granny Jean's Bacon Treats"]
-          }
-        ]
+        "hierarchy" => ["Bacon Supplies", "Sweet!", "Granny Jean's Bacon Treats"]
       }
     ]
   end
