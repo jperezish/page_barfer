@@ -11,9 +11,11 @@ module PageBarfer
       @products.each do |product|
         get_products_categories(product)
         create_directories_from_categories
-        create_product_details_page
+        create_product_details_page(product)
       end
     end
+
+  private
 
     def get_products_categories(product)
       @directories      = ""
@@ -29,9 +31,20 @@ module PageBarfer
       FileUtils.mkdir_p @directories
     end
 
-    def create_product_details_page
+    def create_product_details_page(product)
       product_detail_page = "#{@directories}/index.html"
       FileUtils.touch product_detail_page
+      yaml_front_matter = ""
+
+      file = File.new(product_detail_page, "w")
+      file.puts("---")
+
+      product.each do |key, value|
+        file.puts "#{key}: #{value}"
+      end
+
+      file.puts("---")
+      file.close
     end
 
     def format_category_for_directory(category)

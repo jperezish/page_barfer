@@ -16,10 +16,22 @@ module PageBarfer
         File.exist?("bacon-supplies/savory/bubbas").must_equal true
       end
 
-      it "creates all the product detail pages" do
+      it "creates the product detail pages" do
 
         File.exist?("bacon-supplies/savory/bubbas/index.html").must_equal true
       end
+
+      it "adds product attributes to the product details page" do
+        lines = []
+        file = File.new("bacon-supplies/savory/bubbas/index.html", "r")
+        file.each { |line| lines << line }
+
+        lines[1].delete("\n").must_equal "sku: 1234"
+      end
+    end
+
+    after do
+      FileUtils.rm_rf 'bacon-supplies'
     end
   end
 
@@ -31,7 +43,11 @@ module PageBarfer
     end
 
     def test_create_directories
-      assert_equal "bacon-supplies/savory/bubbas/", @product.directories
+      assert_equal "bacon-supplies/sweet/granny-jeans-bacon-treats/", @product.directories
+    end
+
+    def teardown
+      FileUtils.rm_rf 'bacon-supplies'
     end
   end
 end
@@ -44,9 +60,18 @@ class CatalogDouble
   def products
     [
       { "sku" => "1234",
+        "description" => "The best savory bacon you're ever gonna taste!",
         "hierarchies" => [
           {
             "products" => ["Bacon Supplies", "Savory!", "Bubba's"]
+          }
+        ]
+      },
+      { "sku" => "1255",
+        "description" => "Bacon + chocolate + 100% pure awesome!",
+        "hierarchies" => [
+          {
+            "products" => ["Bacon Supplies", "Sweet!", "Granny Jean's Bacon Treats"]
           }
         ]
       }
@@ -57,7 +82,3 @@ class CatalogDouble
     { "product_details" => "product_details.html" }
   end
 end
-
-# For each product:
-#   create the directories if they don't exist
-#   create the index file with all of the attributes
