@@ -28,9 +28,9 @@ module PageBarfer
       end
     end
 
-    after do
-      FileUtils.rm_rf 'bacon-supplies'
-    end
+    # after do
+    #   FileUtils.rm_rf 'bacon-supplies'
+    # end
   end
 
   class TestProduct < MiniTest::Unit::TestCase
@@ -45,9 +45,9 @@ module PageBarfer
       assert_equal test_path, @product.directory_path
     end
 
-    def teardown
-      FileUtils.rm_rf 'bacon-supplies'
-    end
+    # def teardown
+    #   FileUtils.rm_rf 'bacon-supplies'
+    # end
   end
 end
 

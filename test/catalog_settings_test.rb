@@ -1,6 +1,5 @@
 require_relative '../lib/catalog_settings'
 require_relative 'spec_helper'
-require 'fileutils'
 
 module PageBarfer
 

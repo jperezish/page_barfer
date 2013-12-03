@@ -5,11 +5,10 @@ Feature: page_barfer prepare
   Scenario: Jekyll already installed, site name provided
     Given a directory named "bacon-store"
     And a directory named "_data"
-    And an empty file named "bacon-store/_config.yml"
-    When "prepare" is run with "bacon-store"
+    When "prepare" is run
 
-    Then the command line message should be "Page Barfer is ready for use in the bacon-store directory."
-    And the file "bacon-store/_config.yml" should contain:
+    Then the command line message should be "Page Barfer is ready for use."
+    And the file "_page_barfer.yml" should contain:
       """
       # Page Barfer config
       product_details_layout: #sample_product_details.html
