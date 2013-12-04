@@ -2,7 +2,6 @@ require 'fileutils'
 
 module PageBarfer
   class Product
-    attr_reader :directory_path
 
     def create_catalog(catalog)
       @products    = catalog.products
@@ -37,7 +36,7 @@ module PageBarfer
 
       file = File.new(product_detail_page, "w")
       file.puts("---")
-
+      file.puts("layout: #{@layouts['product_details']}")
       product.each do |key, value|
         file.puts "#{key}: #{value}"
       end

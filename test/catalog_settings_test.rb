@@ -17,9 +17,5 @@ module PageBarfer
           "'#{@config_file}' not found."
       end
     end
-
-    after do
-      FileUtils.rm_rf("_page_barfer.yml")
-    end
   end
 end

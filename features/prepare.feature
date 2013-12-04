@@ -11,7 +11,7 @@ Feature: page_barfer prepare
     And the file "_page_barfer.yml" should contain:
       """
       # Page Barfer config
-      product_details_layout: #sample_product_details.html
-      category_layout: #sample_category.html
-      product_file: #sample_products.json
+      layout_for_product_details: sample_product_details.html
+      layout_for_categories: sample_category.html
+      catalog_file: products.json
       """

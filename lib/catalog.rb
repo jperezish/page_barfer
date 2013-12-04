@@ -21,7 +21,7 @@ private
       layout_prefix = "layout_for"
       config = ConfigReader.load_file
       @catalog_file_name = config["catalog_file"]
-      @layouts = config.select { |k, v| k.include? "layout_for" }
+      @layouts = config.select { |k, v| k.include? layout_prefix }
     end
 
     def read_catalog_file
@@ -31,7 +31,7 @@ private
 
   module ConfigReader
     def self.load_file
-      YAML.load_file("_page_barfer_config.yml")
+      YAML.load_file("_page_barfer.yml")
     end
   end
 end

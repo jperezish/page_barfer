@@ -20,12 +20,12 @@ Feature: page_barfer barf
     }
     ]
     """
-    And a file named "_page_barfer_config.yml" with:
+    And a file named "_page_barfer.yml" with:
 
     """
     # Page Barfer config
     layout_for_product_details: sample_product_details.html
-    layout_for_category: sample_category.html
+    layout_for_categories: sample_category.html
     catalog_file: products.json
     """
 

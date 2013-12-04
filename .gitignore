@@ -5,6 +5,7 @@ Gemfile.lock
 *.gem
 products.json
 _page_barfer_config.yml
+_page_barfer.yml
 products
 bacon-store
 bacon-supplies

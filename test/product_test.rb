@@ -24,35 +24,23 @@ module PageBarfer
         file = File.new("bacon-supplies/savory/bubbas/index.html", "r")
         file.each { |line| lines << line }
 
-        lines[1].delete("\n").must_equal "sku: 1234"
+        lines[2].delete("\n").must_equal "sku: 1234"
+      end
+
+      it "adds the product layout to the product details page" do
+        lines = []
+        file = File.new("bacon-supplies/savory/bubbas/index.html", "r")
+        file.each { |line| lines << line }
+
+        lines[1].delete("\n").must_equal "layout: product_details.html"
       end
     end
 
-    # after do
-    #   FileUtils.rm_rf 'bacon-supplies'
-    # end
-  end
-
-  class TestProduct < MiniTest::Unit::TestCase
-    def setup
-      @catalog_double = CatalogDouble.new
-      @product = Product.new
-      @product.create_catalog(@catalog_double)
+    after do
+      FileUtils.rm_rf 'bacon-supplies'
     end
-
-    def test_create_directories
-      test_path = "bacon-supplies/sweet/granny-jeans-bacon-treats/"
-      assert_equal test_path, @product.directory_path
-    end
-
-    # def teardown
-    #   FileUtils.rm_rf 'bacon-supplies'
-    # end
   end
 end
-
-
-
 
 
 class CatalogDouble

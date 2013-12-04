@@ -8,9 +8,9 @@ module PageBarfer
 
       file = File.new(@config_file, "w")
       file.puts "# Page Barfer config"
-      file.puts "product_details_layout: #sample_product_details.html"
-      file.puts "category_layout: #sample_category.html"
-      file.puts "product_file: #sample_products.json"
+      file.puts "layout_for_product_details: sample_product_details.html"
+      file.puts "layout_for_categories: sample_category.html"
+      file.puts "catalog_file: products.json"
       file.close
     end
   end
