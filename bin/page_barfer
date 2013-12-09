@@ -1,7 +1,5 @@
 #!/usr/bin/env ruby
-require_relative '../lib/catalog'
-require_relative '../lib/product'
-require_relative '../lib/catalog_settings'
+require_relative '../lib/catalog_addition'
 
 require "thor"
 
@@ -17,7 +15,8 @@ module PageBarfer
       and provides some instruction on what to do next.
     LONGDESC
     def prepare
-      CatalogSettings.configure
+      catalog = CatalogAddition.new
+      catalog.prepare_new_catalog
       puts "Page Barfer is ready for use."
     end
 
@@ -29,9 +28,9 @@ module PageBarfer
       Okay it's not really that long.
     LONGDESC
     def barf
-      creators = [Product.new]
-      catalog = Catalog.new
-      catalog.create(creators)
+      catalog = CatalogAddition.new(:page_addition => PageAddition.new)
+      catalog.get_catalog_settings
+      catalog.create_new_catalog
       puts "Successfully imported products.json."
     end
   end

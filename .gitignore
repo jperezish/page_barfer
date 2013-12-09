@@ -1,5 +1,6 @@
 # Site specific #
 #################
+.swp
 tmp
 Gemfile.lock
 *.gem
