@@ -4,8 +4,9 @@ module PageBarfer
   class PageAddition
 
     def create_pages(args={})
-      @products = args[:products]
-      @layouts  = args[:layouts]
+      @products     = args[:products]
+      @layouts      = args[:layouts]
+      @catalog_name = args[:catalog_name]
 
       @products.each do |product|
         get_product_categories(product)
@@ -17,9 +18,8 @@ module PageBarfer
   private
 
     def get_product_categories(product)
-      @directory_path      = ""
       product_hierarchy = product["hierarchy"]
-
+      @directory_path   = "#{@catalog_name}/"
       product_hierarchy.each do |category|
         @directory_path << "#{format_category_for_directory(category)}/"
       end

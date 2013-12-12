@@ -26,6 +26,7 @@ Feature: page_barfer barf
     # Page Barfer config
     layout_for_product_details: sample_product_details.html
     layout_for_categories: sample_category.html
+    catalog_name: products
     catalog_file: products.json
     """
 
@@ -34,6 +35,6 @@ Feature: page_barfer barf
     When "barf" is run
 
     Then the command line message should be "Successfully imported products.json."
-    And a file named "bacon-supplies/savory/bubba/index.html" should exist
-    And a file named "bacon-supplies/sweet/chocolate/vosges/index.html" should exist
+    And a file named "products/bacon-supplies/savory/bubba/index.html" should exist
+    And a file named "products/bacon-supplies/sweet/chocolate/vosges/index.html" should exist
 

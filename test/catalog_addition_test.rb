@@ -40,11 +40,11 @@ module PageBarfer
         @catalog.get_catalog_settings
       end
 
-      it "creates a list of products in the catalog" do
+      it "gets a list of products in the catalog" do
         @catalog.products[1]["sku"].must_equal "1332328976"
       end
 
-      it "creates a list of page layouts" do
+      it "gets a list of page layouts" do
         page_layout_name = "layout_for_product_details"
         layout_file_name = "sample_product_details.html"
 
@@ -54,8 +54,9 @@ module PageBarfer
 
     describe "#create_new_catalog" do
       it "sends a message to create a new catalog" do
-        args = { layouts: nil,
-               products: nil }
+        args = { layouts:      nil,
+                 products:     nil,
+                 catalog_name: nil }
         @page_addition.expect :create_pages, true, [args]
         @catalog.create_new_catalog
         @page_addition.verify

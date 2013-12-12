@@ -17,7 +17,8 @@ module PageBarfer
                   }
                 ],
                 :layouts => {
-                    "layout_for_product_details" => "product_details.html" }
+                    "layout_for_product_details" => "product_details.html" },
+                :catalog_name => "sample"
         }
       @page_addition = PageAddition.new
       @page_addition.create_pages(@args)
@@ -25,16 +26,16 @@ module PageBarfer
 
     describe "#create_pages" do
       it "creates all the directories" do
-        File.exist?("bacon-supplies/savory/bubbas").must_equal true
+        File.exist?("sample/bacon-supplies/savory/bubbas").must_equal true
       end
 
       it "creates the product detail pages" do
-        File.exist?("bacon-supplies/savory/bubbas/index.html").must_equal true
+        File.exist?("sample/bacon-supplies/savory/bubbas/index.html").must_equal true
       end
 
       it "adds product attributes to the product details page" do
         lines = []
-        file = File.new("bacon-supplies/savory/bubbas/index.html", "r")
+        file = File.new("sample/bacon-supplies/savory/bubbas/index.html", "r")
         file.each { |line| lines << line }
 
         lines[2].delete("\n").must_equal "sku: 1234"
@@ -42,14 +43,14 @@ module PageBarfer
 
       it "adds the product layout to the product details page" do
         lines = []
-        file = File.new("bacon-supplies/savory/bubbas/index.html", "r")
+        file = File.new("sample/bacon-supplies/savory/bubbas/index.html", "r")
         file.each { |line| lines << line }
 
         lines[1].delete("\n").must_equal "layout: product_details.html"
       end
 
       after do
-        FileUtils.rm_rf 'bacon-supplies'
+        FileUtils.rm_rf 'sample'
       end
     end
   end

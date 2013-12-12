@@ -20,6 +20,7 @@ module PageBarfer
         file.puts "layout_for_product_details: sample_product_details.html"
         file.puts "layout_for_categories: sample_category.html"
         file.puts "catalog_file: products.json"
+        file.puts "catalog_name: sample"
         file.close
       end
     end
@@ -30,8 +31,9 @@ module PageBarfer
     end
 
     def create_new_catalog
-      args = { layouts: layouts,
-               products: products }
+      args = { layouts:       layouts,
+               products:      products,
+               catalog_name:  @catalog_name }
       @page_addition.create_pages(args)
     end
 
@@ -41,6 +43,7 @@ module PageBarfer
       layout_prefix = "layout_for"
       config = load_page_barfer_config_file
       @catalog_file_name = config["catalog_file"]
+      @catalog_name = config["catalog_name"]
       @layouts = config.select { |k, v| k.include? layout_prefix }
     end
 
