@@ -8,19 +8,20 @@ module PageBarfer
     attr_reader :layouts, :products
 
     def initialize(args={})
-      @config_file            = "_page_barfer.yml"
+      @config_file    = "_page_barfer.yml"
       @page_addition  = args[:page_addition]
     end
 
     def prepare_new_catalog
-      FileUtils.touch @config_file
-
-      file = File.new(@config_file, "w")
-      file.puts "# Page Barfer config"
-      file.puts "layout_for_product_details: sample_product_details.html"
-      file.puts "layout_for_categories: sample_category.html"
-      file.puts "catalog_file: products.json"
-      file.close
+      if !(File.file? @config_file)
+        FileUtils.touch @config_file
+        file = File.new(@config_file, "w")
+        file.puts "# Page Barfer config"
+        file.puts "layout_for_product_details: sample_product_details.html"
+        file.puts "layout_for_categories: sample_category.html"
+        file.puts "catalog_file: products.json"
+        file.close
+      end
     end
 
     def get_catalog_settings

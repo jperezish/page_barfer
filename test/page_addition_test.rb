@@ -16,7 +16,8 @@ module PageBarfer
                                     "Granny Jean's Bacon Treats"]
                   }
                 ],
-                :layouts => { "product_details" => "product_details.html" }
+                :layouts => {
+                    "layout_for_product_details" => "product_details.html" }
         }
       @page_addition = PageAddition.new
       @page_addition.create_pages(@args)

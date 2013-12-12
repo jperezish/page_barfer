@@ -9,15 +9,29 @@ module PageBarfer
       @products_file  = "products.json"
       @page_addition  = MiniTest::Mock.new
       @catalog        = CatalogAddition.new(page_addition: @page_addition)
+      @catalog.prepare_new_catalog
+    end
+
+    after do
+      @catalog = ""
     end
 
     describe "#prepare_new_catalog" do
 
       it "creates the page barfer config file" do
-        @catalog.prepare_new_catalog
+        File.file?(@config_file).must_equal true
+        FileUtils.rm_rf @config_file
+      end
 
-        assert File.exist?(@config_file),
-          "'#{@config_file}' not found."
+      it "does not overwrite the page barfer config file if it already exists" do
+        file = File.new(@config_file, "a")
+        file.puts "layout_for_test: should not delete"
+        file.close
+
+        @catalog.prepare_new_catalog
+        @catalog.get_catalog_settings
+        @catalog.layouts["layout_for_test"].must_equal "should not delete"
+        FileUtils.rm_rf @config_file
       end
     end
 

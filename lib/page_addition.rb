@@ -36,7 +36,7 @@ module PageBarfer
 
       file = File.new(product_detail_page, "w")
       file.puts("---")
-      file.puts("layout: #{@layouts['product_details']}")
+      file.puts("layout: #{@layouts['layout_for_product_details']}")
       product.each do |key, value|
         file.puts "#{key}: #{value}"
       end
