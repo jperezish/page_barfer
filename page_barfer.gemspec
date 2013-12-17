@@ -10,6 +10,8 @@ Gem::Specification.new do |s|
   s.files       = %w[
     lib/catalog_addition.rb
     lib/page_addition.rb
+    lib/configuration.rb
+    lib/products.rb
     ]
   s.homepage    =
     'http://rubygems.org/gems/page_barfer'

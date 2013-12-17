@@ -8,12 +8,37 @@ module PageBarfer
       @configuration  = ConfigurationDouble.new
       @page_addition  = PageAdditionDouble.new
       @products       = ProductsDouble.new
-      @catalog        = CatalogAddition.new(page_addition:  @page_addition,
-                                            configuration:  @configuration,
-                                            products:       @products)
+    end
+
+    describe "#initialize" do
+      it "requires a configuration" do
+        proc do
+          catalog = CatalogAddition.new(page_addition:  @page_addition,
+                                        products:       @products)
+        end.must_raise KeyError
+      end
+
+      it "requires products" do
+        proc do
+          catalog = CatalogAddition.new(page_addition:  @page_addition,
+                                        configuration:  @configuration)
+        end.must_raise KeyError
+      end
+
+      it "requires pages" do
+        proc do
+          catalog = CatalogAddition.new(configuration:  @configuration,
+                                        products:       @products)
+        end.must_raise KeyError
+      end
     end
 
     describe "#create_new_catalog" do
+      before do
+        @catalog = CatalogAddition.new(page_addition:  @page_addition,
+                                        configuration:  @configuration,
+                                        products:       @products)
+      end
       it "sends a message to create a new catalog" do
         @catalog.must_respond_to :create_new_catalog
       end

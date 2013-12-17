@@ -4,8 +4,6 @@ require_relative 'spec_helper'
 module PageBarfer
 
   describe Products do
-      it "sends a message to get the product list" do
-        Products
-      end
+      it "sends a message to get the product list"
   end
 end
