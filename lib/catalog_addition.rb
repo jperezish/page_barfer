@@ -1,58 +1,28 @@
 require_relative '../lib/page_addition'
+
 require 'fileutils'
 require 'yaml'
 require 'json'
 
 module PageBarfer
   class CatalogAddition
-    attr_reader :layouts, :products
 
     def initialize(args={})
-      @config_file    = "_page_barfer.yml"
-      @page_addition  = args[:page_addition]
-    end
-
-    def prepare_new_catalog
-      if !(File.file? @config_file)
-        FileUtils.touch @config_file
-        file = File.new(@config_file, "w")
-        file.puts "# Page Barfer config"
-        file.puts "layout_for_product_details: sample_product_details.html"
-        file.puts "layout_for_categories: sample_category.html"
-        file.puts "catalog_file: products.json"
-        file.puts "catalog_name: sample"
-        file.close
-      end
-    end
-
-    def get_catalog_settings
-      read_page_barfer_config_file
-      read_catalog_file
+      @configuration      = args.fetch(:configuration)
+      @page_addition      = args.fetch(:page_addition)
+      @products           = args.fetch(:products)
     end
 
     def create_new_catalog
+      layouts           = @configuration.layouts
+      catalog_name      = @configuration.catalog_name
+      catalog_file_name = @configuration.catalog_file_name
+      products          = @products.get_the_product_list(catalog_file_name)
+
       args = { layouts:       layouts,
                products:      products,
-               catalog_name:  @catalog_name }
+               catalog_name:  catalog_name }
       @page_addition.create_pages(args)
-    end
-
-  private
-
-    def read_page_barfer_config_file
-      layout_prefix = "layout_for"
-      config = load_page_barfer_config_file
-      @catalog_file_name = config["catalog_file"]
-      @catalog_name = config["catalog_name"]
-      @layouts = config.select { |k, v| k.include? layout_prefix }
-    end
-
-    def read_catalog_file
-      @products = JSON.parse(IO.read(@catalog_file_name))
-    end
-
-    def load_page_barfer_config_file
-      YAML.load_file(@config_file)
     end
   end
 end

@@ -4,9 +4,10 @@ module PageBarfer
   class PageAddition
 
     def create_pages(args={})
-      @products     = args[:products]
-      @layouts      = args[:layouts]
-      @catalog_name = args[:catalog_name]
+      @products     = args.fetch(:products)
+      @layouts      = args.fetch(:layouts)
+      @catalog_name = args.fetch(:catalog_name) {raise KeyError,
+                      "A catalog name must be supplied in the Page Barfer config file"}
 
       @products.each do |product|
         get_product_categories(product)
