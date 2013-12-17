@@ -10,11 +10,10 @@ module PageBarfer
   class Commands < Thor
     include Thor::Actions
 
-    desc "prepare JEKYLL_SITE_NAME",
+    desc "prepare",
           "prepare Page Barfer for use."
     long_desc <<-LONGDESC
-      The prepare command adds a directory named 'page_barfer',
-      a config file in that directory named '_page_barfer_config.yml',
+      The 'prepare' command adds a config file named '_page_barfer.yml'
       and provides some instruction on what to do next.
     LONGDESC
     def prepare
@@ -22,15 +21,19 @@ module PageBarfer
                :page_addition =>  PageAddition.new,
                :products =>       Products.new }
       CatalogAddition.new(args)
-      puts "Page Barfer is ready for use."
+      puts "Created the Page Barfer config file '_page_barfer.yml'."
+      puts "Update this file to use Page Barfer."
     end
 
-    desc "barf FILE_NAME LAYOUT_NAME",
-          "create pages based on LAYOUT_NAME for each record in FILE_NAME"
+    desc "barf",
+          "create pages based on the details in the Page Barfer config file."
     long_desc <<-LONGDESC
-      This is a long description
-
-      Okay it's not really that long.
+      The 'barf' command reads the '_page_barfer.yml' config file.
+      It gets the page layouts, the name of the product file and the catalog name.
+      It then creates a directory for the catalog name,
+      creates sub-directories for each product based on the product's hierarchy,
+      creates a product detail page for each product that points to each product's
+      layout.
     LONGDESC
     def barf
       args = { :configuration =>  Configuration.new,
