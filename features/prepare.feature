@@ -7,7 +7,7 @@ Feature: page_barfer prepare
     And a directory named "_data"
     When "prepare" is run
 
-    Then the command line message should be "Page Barfer is ready for use."
+    Then the command line message should be "Update this file to use Page Barfer."
     And the file "_page_barfer.yml" should contain:
       """
       # Page Barfer config
