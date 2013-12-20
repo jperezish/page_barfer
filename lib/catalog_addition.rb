@@ -17,15 +17,21 @@ module PageBarfer
       layouts           = @configuration.layouts
       catalog_name      = @configuration.catalog_name
       catalog_file_name = @configuration.catalog_file_name
-      args              = { :parser            => JSON,
-                            :file_reader       => IO,
-                            :catalog_file_name => catalog_file_name}
-      products          = @products.get_the_product_list(args)
+      product_list      = get_product_list_from(catalog_file_name)
 
       args = { layouts:       layouts,
-               products:      products,
+               products:      product_list,
                catalog_name:  catalog_name }
       @page_addition.create_pages(args)
+    end
+
+  private
+
+    def get_product_list_from(catalog_file_name)
+      args = { :parser            => JSON,
+               :file_reader       => IO,
+               :catalog_file_name => catalog_file_name}
+      @products.get_the_product_list(args)
     end
   end
 end

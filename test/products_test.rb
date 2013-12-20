@@ -17,7 +17,7 @@ module PageBarfer
                :catalog_file_name => @catalog_file_name}
       @json.expect :parse, true, [@io.read(@catalog_file_name)]
       @products.get_the_product_list(args)
-      @json.verify
+      assert  @json.verify
     end
   end
 

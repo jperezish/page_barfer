@@ -6,11 +6,13 @@ module PageBarfer
   describe CatalogAddition do
     before do
       @configuration  = ConfigurationDouble.new
-      @page_addition  = PageAdditionDouble.new
       @products       = ProductsDouble.new
     end
 
     describe "#initialize" do
+      before do
+        @page_addition  = PageAdditionDouble.new
+      end
       it "requires a configuration" do
         proc do
           catalog = CatalogAddition.new(page_addition:  @page_addition,
@@ -35,12 +37,19 @@ module PageBarfer
 
     describe "#create_new_catalog" do
       before do
+        @page_addition = MiniTest::Mock.new
         @catalog = CatalogAddition.new(page_addition:  @page_addition,
                                         configuration:  @configuration,
                                         products:       @products)
+        @args = { layouts:       @configuration.layouts,
+                 products:       @products.get_the_product_list(nil),
+                 catalog_name:   @configuration.catalog_name }
       end
-      it "sends a message to create a new catalog" do
-        @catalog.must_respond_to :create_new_catalog
+
+      it "sends a message to create the content for a new catalog" do
+        @page_addition.expect :create_pages, nil, [@args]
+        @catalog.create_new_catalog
+        assert @page_addition.verify
       end
     end
   end
@@ -54,10 +63,13 @@ module PageBarfer
     def catalog_name
       "sample"
     end
+
+    def catalog_file_name
+    end
   end
 
   class ProductsDouble
-    def get_the_product_list
+    def get_the_product_list(args)
       {}
     end
   end
