@@ -1,5 +1,6 @@
 require 'rake'
 require 'rake/testtask'
+require "minitest/autorun"
 
 task :tests do
   $LOAD_PATH.unshift('lib', 'spec')
